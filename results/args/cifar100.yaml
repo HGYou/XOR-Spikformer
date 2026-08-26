@@ -1,0 +1,221 @@
+_note: 'Configuration of each run reported in the paper. Shared settings are under `common`;
+  each entry under `experiments` lists only the fields that differ from it, so a run is `common |
+  experiments[<experiment>]`. These are the settings needed to rerun a configuration, not a verbatim dump
+  of the original argparse namespace: `gpu`, `output`, `experiment` and `resume` are omitted
+  as environment-specific and `data_dir` is a placeholder. Architecture arguments that this
+  dataset''s train.py does not read from the configuration are fixed in its model.py. Reported
+  experiments: `add`, `xor`, `xor_ov` as above; `or`, `or_clamp`, `or_ov` and `ms` are the residual-operator
+  alternatives. `xor_ov_lam*` sweeps the regularization weight with a 20-epoch warm-up and
+  `xor_ov_w0_lam*` the same weights without one.'
+common:
+  aa: rand-m9-n1-mstd0.4-inc1
+  accum_steps: 1
+  amp: true
+  apex_amp: false
+  aug_splits: 0
+  batch_size: 64
+  bn_eps: null
+  bn_momentum: null
+  bn_tf: false
+  channels_last: false
+  checkpoint_hist: 10
+  clip_grad: null
+  clip_mode: norm
+  color_jitter: 0.0
+  compile_mode: reduce-overhead
+  cooldown_epochs: 20
+  crop_pct: 1.0
+  cutmix: 0.0
+  cutmix_minmax: null
+  data_dir: <data_root>/cifar100
+  dataset: torch/cifar100
+  decay_epochs: 30
+  decay_rate: 0.1
+  dim: 384
+  dist_bn: ''
+  drop: 0.0
+  drop_block: null
+  drop_connect: null
+  drop_path: 0.0
+  epoch_repeats: 0.0
+  epochs: 300
+  eval_metric: top1
+  gp: null
+  hflip: 0.5
+  img_size: 32
+  initial_checkpoint: ''
+  input_size: null
+  interpolation: bicubic
+  jsd: false
+  layer: 4
+  local_rank: 0
+  log_interval: 1000
+  log_wandb: false
+  lr: 0.0005
+  lr_cycle_limit: 1
+  lr_cycle_mul: 1.0
+  lr_noise: null
+  lr_noise_pct: 0.67
+  lr_noise_std: 1.0
+  mean:
+  - 0.5071
+  - 0.4867
+  - 0.4408
+  min_lr: 1.0e-05
+  mixup: 1.0
+  mixup_mode: batch
+  mixup_off_epoch: 200
+  mixup_prob: 1.0
+  mixup_switch_prob: 0.5
+  mlp_ratio: 4
+  model: spikformer
+  model_ema: false
+  model_ema_decay: 0.9998
+  model_ema_force_cpu: false
+  momentum: 0.9
+  native_amp: false
+  no_aug: false
+  no_prefetcher: false
+  no_resume_opt: false
+  num_classes: 100
+  num_heads: 12
+  opt: adamw
+  opt_betas: null
+  opt_eps: null
+  patch_size: 4
+  patience_epochs: 10
+  pin_mem: false
+  pretrained: false
+  ratio:
+  - 1.0
+  - 1.0
+  recount: 1
+  recovery_interval: 0
+  remode: const
+  reprob: 0.25
+  resplit: false
+  save_images: false
+  scale:
+  - 1.0
+  - 1.0
+  sched: cosine
+  seed: 42
+  smoothing: 0.1
+  split_bn: false
+  start_epoch: null
+  std:
+  - 0.2675
+  - 0.2565
+  - 0.2761
+  sync_bn: false
+  time_step: 4
+  torch_compile: false
+  torchscript: false
+  train_interpolation: bicubic
+  train_split: train
+  tta: 0
+  use_multi_epochs_loader: false
+  val_batch_size: 64
+  val_split: validation
+  vflip: 0.0
+  warmup_epochs: 20
+  warmup_lr: 1.0e-05
+  weight_decay: 0.06
+  workers: 8
+experiments:
+  add:
+    fusion: add
+    lam_ov: 0.0
+    ov_warmup_epochs: 0
+  ms:
+    fusion: ms
+    lam_ov: 0.0
+    ov_warmup_epochs: 0
+  or:
+    fusion: or
+    lam_ov: 0.0
+    ov_warmup_epochs: 0
+  or_clamp:
+    fusion: or_clamp
+    lam_ov: 0.0
+    ov_warmup_epochs: 0
+  or_ov:
+    fusion: or
+    lam_ov: 10.0
+    ov_warmup_epochs: 20
+  xor:
+    fusion: xor
+    lam_ov: 0.0
+    ov_warmup_epochs: 0
+  xor_ov:
+    fusion: xor
+    lam_ov: 10.0
+    ov_warmup_epochs: 20
+  xor_ov_lam0p01:
+    fusion: xor
+    lam_ov: 0.01
+    ov_warmup_epochs: 20
+  xor_ov_lam0p1:
+    fusion: xor
+    lam_ov: 0.1
+    ov_warmup_epochs: 20
+  xor_ov_lam1:
+    fusion: xor
+    lam_ov: 1.0
+    ov_warmup_epochs: 20
+  xor_ov_lam15:
+    fusion: xor
+    lam_ov: 15.0
+    ov_warmup_epochs: 20
+  xor_ov_lam20:
+    fusion: xor
+    lam_ov: 20.0
+    ov_warmup_epochs: 20
+  xor_ov_lam25:
+    fusion: xor
+    lam_ov: 25.0
+    ov_warmup_epochs: 20
+  xor_ov_lam30:
+    fusion: xor
+    lam_ov: 30.0
+    ov_warmup_epochs: 20
+  xor_ov_lam5:
+    fusion: xor
+    lam_ov: 5.0
+    ov_warmup_epochs: 20
+  xor_ov_w0_lam0p01:
+    fusion: xor
+    lam_ov: 0.01
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam0p1:
+    fusion: xor
+    lam_ov: 0.1
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam1:
+    fusion: xor
+    lam_ov: 1.0
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam10:
+    fusion: xor
+    lam_ov: 10.0
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam15:
+    fusion: xor
+    lam_ov: 15.0
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam20:
+    fusion: xor
+    lam_ov: 20.0
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam25:
+    fusion: xor
+    lam_ov: 25.0
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam30:
+    fusion: xor
+    lam_ov: 30.0
+    ov_warmup_epochs: 0
+  xor_ov_w0_lam5:
+    fusion: xor
+    lam_ov: 5.0
+    ov_warmup_epochs: 0

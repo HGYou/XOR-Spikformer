@@ -1,0 +1,17 @@
+# Direct dependencies of this repository, at the versions used for the reported
+# runs. Transitive dependencies are resolved by pip and are not pinned here.
+#
+# The +cu118 wheels are not published on PyPI:
+#   pip install --extra-index-url https://download.pytorch.org/whl/cu118 -r requirements.txt
+
+torch==2.7.1+cu118
+torchvision==0.22.1+cu118
+timm==0.5.4
+spikingjelly==0.0.0.0.12
+cupy-cuda11x==13.6.0
+numpy==1.26.4
+PyYAML==6.0.3
+pillow==11.0.0
+
+# optional: wandb logging (--log-wandb) and NVIDIA apex AMP are imported behind
+# try/except and are not required to train or evaluate.
